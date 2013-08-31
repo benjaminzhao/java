@@ -5,7 +5,6 @@ import java.io.*;
 
 public class JC_solver
 {
-	
 	public static void main(String args[]) throws IOException
 	{
 		int c_cnt = 0;	//total count of C
@@ -28,7 +27,6 @@ public class JC_solver
 		if (fin.exists() == false)
 		{	//if input file does not exsit, done
 			throw new FileNotFoundException(fin_name);
-			//throw new Error("File: " + fin_name + "does not exist!");
 		}
 		else if (fin.isFile() == false)
 		{
@@ -39,10 +37,12 @@ public class JC_solver
 			throw new Error("File: " + fin_name + "can not be read!");
 			
 		}
+		
 		RandomAccessFile fin_handler = new RandomAccessFile(fin,"r");//for multiple read
 		FileReader fin_reader = new FileReader(fin);
 		BufferedReader fin_br = new BufferedReader(fin_reader);// bufferio is much efficient, buffer reader is for char stream
 		Scanner fin_Scanner = new Scanner(fin_br);
+		
 			/* 1st read input file, get C_cnt and J_cnt */
 			while(fin_Scanner.hasNextLine())
 			{
@@ -68,7 +68,6 @@ public class JC_solver
 			int[][] C = new int[c_cnt][element_cnt];
 			int[][] J = new int[j_cnt][element_cnt];
 			int[][] JC_favo = new int[j_cnt][jc_favo_cnt];
-			//System.out.println( "C count: " + c_cnt + " J count: " + j_cnt);	
 						
 			/* 2nd read input file,  */
 			fin_handler.seek(0);	// goto the beginning fo file, read again
@@ -116,12 +115,7 @@ public class JC_solver
 				}
 			}//while
 		Date now_time = new Date();
-		System.out.println( dft.format(now_time) + " file parsed @ ");	
-		
-		//for test
-//		System.out.println("J array:");
-//		for (int j = 0; j < j_cnt;j++)
-//				System.out.println(J[j]);
+		System.out.println( dft.format(now_time) + " file parsed @ ");
 			
 		/* calc Js_value = J dot C */
 		int[][] Js_value = new int[j_cnt][c_cnt];
@@ -132,16 +126,14 @@ public class JC_solver
 				Js_value[j][c] = J[j][0]*C[c][0] + J[j][1]*C[c][1] + J[j][2]*C[c][2];
 			}
 		}
+		
 		now_time = new Date();
 		System.out.println( dft.format(now_time) + " JdotC calculated @ ");
-		
-		
 		
 		/* set J to C order table */
 		int[][] JC_order = new int[j_cnt][c_cnt];
 		JC_order = get_JC_order(Js_value, JC_favo);
-//		for(int i=0; i<j_cnt; i++)
-//			System.out.println(Arrays.toString(JC_order[i]));
+
 		now_time = new Date();
 		System.out.println( dft.format(now_time) + " J to C re-order @ ");
 		
@@ -210,6 +202,7 @@ public class JC_solver
 		}
 		fout_br.flush();
 		fout_br.close();
+		
 		/* set end time tag */
 		now_time = new Date();
 		System.out.println( dft.format(now_time) + " end @ ");
@@ -218,12 +211,21 @@ public class JC_solver
 		for(int i = 0; i<Cteam_vol; i++)
 			sum = sum + C_assigned[1970][i];
 		System.out.println("total number of C1970 is: " + sum);
-		
 	}//main
 	
 	
-	
-	/* get the J assign to C order, favorite first, then order based on J_value, big->small */
+	/* ****************************************************
+	 * int[][] get_JC_order(int[][] Js_value, int[][] Js_favorC)
+	 * 
+	 * get the Js order of preference, favorite group first,
+	 * then order based on Js_value, big->small
+	 * 
+	 * input:  Js_value = matric of J dot C value, 
+	 *         J in row, C in col
+	 *         Js_favorC = matric of Js' order of favorite from input file
+	 * return: matric of J assigned to C,
+	 *         C in row, J assigned in col
+	 * ***************************************************/
 	public static int[][] get_JC_order(int[][] Js_value, int[][] Js_favorC)
 	{   
 		int i;
@@ -310,6 +312,17 @@ public class JC_solver
 		return JC_order;
 	}
 	
+	/* ****************************************************
+	 * int[][] assign_J2C(int[][] Js_value, int[][] JC_order)
+	 * 
+	 * assign Js to Cs
+	 * 
+	 * input: Js_value = matric of J dot C value, 
+	 *        J in row, C in col
+	 *        JC_order = matric of Js' order of preference
+	 * return:matric of J assigned to C,
+	 *        C in row, J assigned in col
+	 * ***************************************************/
 	public static int[][] assign_J2C(int[][] Js_value, int[][] JC_order)
 	{
 		int j_cnt = Js_value.length;
@@ -363,13 +376,9 @@ public class JC_solver
 				}
 			}//while
 			while(C_assign[c_id][team_vol] != -1);
-		}
-//		for(int c = 0;c < c_cnt; c++)
-//			System.out.println( Arrays.toString(C_assign[c]) );		
-		
+		}//for
 		return C_assign;
-
-	}	
+	}
 	
 }
 
