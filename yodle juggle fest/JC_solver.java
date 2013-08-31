@@ -1,3 +1,8 @@
+/**
+ * this class solves the Yodle's "juggler and circuits" problem
+ * @auther Bin Zhao
+ * @version 1.0
+ */
 import java.text.*;
 import java.util.*;
 import java.lang.Math.*;
