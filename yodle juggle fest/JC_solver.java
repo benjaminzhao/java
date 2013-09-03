@@ -2,6 +2,7 @@
  * this class solves the Yodle's "juggler and circuits" problem
  * @auther Bin Zhao
  * @version 1.0
+ * @date    2013-08-30
  */
 import java.text.*;
 import java.util.*;
