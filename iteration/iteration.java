@@ -15,18 +15,21 @@ public class iteration
 		Date now = new Date();
 		System.out.println( dft.format(now) + " start");
 		
-		int length = 100000;
+		int length = 4;
 		double[] start_array = producer(length);
 		now = new Date();
-		System.out.println( dft.format(now) + " produced" + length);
+		System.out.println( dft.format(now) + " produced " + length);
+		System.out.println( Arrays.toString(start_array) );
 		
-		double[] end_array = sort(start_array);
+		double[] end_array1 = sort(start_array);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by sort()");
+		System.out.println( Arrays.toString(end_array1) );
 		
-		double[] end_array = Qsort(start_array);
+		double[] end_array2 = Qsort(start_array);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by Qsort()");
+		System.out.println( Arrays.toString(end_array2) );
 		
 		demo(0);
 		now = new Date();
@@ -61,26 +64,43 @@ public class iteration
 	//quick sort function: small->big
 	public static double[] Qsort(double[] array)
 	{
-		double[] a = array;
 		double temp = 0;
-		int index = a.length/2;
-		
-		temp = a[index];
-		for(int i = 0; i < a.length; i++)
-			if(a[i]<temp)
-				a1[i] = [i];
-		
-		if(index > 1 && a.length-index > 0)
+		double[] a = array;
+		//System.out.println( Arrays.toString(a) );
+		if(a.length <= 1)
 		{
-			
+			return a;
 		}
-		double[] a1 = new double[index];
-		double[] a2 = new double[a.length-index];
+		int j = 0;
+		for(int i = 1; i < a.length; i++)
+			if(a[i] < a[0])
+			{
+				j++;
+				temp = a[j];
+				a[j] = a[i];
+				a[i] = temp;
+			}
+		temp = a[j];
+		a[j] = a[0];
+		a[0] = temp;
+
+		double[] a_L = new double[j+1];
+		double[] a_R = new double[a.length-j-1];
 		
-		Qsort(a1);
-		Qsort(a2);
+		a_L = Arrays.copyOfRange(a, 0, j);
+		a_R = Arrays.copyOfRange(a, j+1, a.length-1);
+		System.out.println( Arrays.toString(a_L) );
+		System.out.println( Arrays.toString(a_R) );
 		
-		return a;
+		double[] a_L_new = new double[a_L.length];
+		a_L_new = Qsort(a_L);
+		double[] a_R_new = new double[a_R.length];
+		a_R_new = Qsort(a_R);
+		
+		double[] a_LR = new double[a_L_new.length+a_R_new.length];
+		System.arraycopy(a_L_new,0, a_LR,0, a_L_new.length);
+		System.arraycopy(a_R_new,0, a_LR,a_L_new.length, a_R_new.length);
+		return a_LR;
 	}
 	
 	//simple demo function
