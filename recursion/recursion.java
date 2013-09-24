@@ -5,7 +5,7 @@ import java.lang.Math.*;
 import java.io.*;
 
 
-public class iteration
+public class recursion
 {
 	public static int cnt = 0;
 	public static void main(String args[]) throws IOException
