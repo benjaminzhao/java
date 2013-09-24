@@ -18,7 +18,7 @@ public class recursion
 		double[] start_array = producer(length);
 		now = new Date();
 		System.out.println( dft.format(now) + " array produced " + length);
-		//System.out.println( Arrays.toString(start_array) );
+		System.out.println( Arrays.toString(start_array) );
 		
 		double[] end_array1 = sort(start_array);
 		now = new Date();
@@ -27,14 +27,14 @@ public class recursion
 		
 		try
 		{
-			double[] end_array2 = Qsort(start_array);
+			double[] end_array2 = Qsort(end_array1);
 			System.out.println( "Qsort "+ cnt);
 		}
 		catch(Throwable e)
 		{
 			System.out.println( "Qsort "+ cnt);
-			System.out.println( "catch exception: "+ e.getMessage() );
-			return; //throw e;
+			System.err.println( "catch exception: " + e.getMessage());//
+			return; // e;
 		}
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by Qsort()");
@@ -99,13 +99,13 @@ public class recursion
 		a_L = Arrays.copyOfRange(a, 0, j+1);//0~j
 		double[] a_L_new = new double[a_L.length];
 		a_L_new = Qsort(a_L);		
+		System.out.println( Arrays.toString(a_L) );
 		
 		double[] a_R = new double[len-j-1];
 		a_R = Arrays.copyOfRange(a, j+1, len);//j+1~len-1
 		double[] a_R_new = new double[a_R.length];
-		a_R_new = Qsort(a_R);		
-		//System.out.println( Arrays.toString(a_L) );
-		//System.out.println( Arrays.toString(a_R) );
+		a_R_new = Qsort(a_R);
+		System.out.println( Arrays.toString(a_R) );
 		
 		double[] a_LR = new double[a_L_new.length+a_R_new.length];
 		System.arraycopy(a_L_new,0, a_LR, 0, a_L_new.length);
