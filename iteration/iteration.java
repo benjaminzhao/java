@@ -15,21 +15,22 @@ public class iteration
 		Date now = new Date();
 		System.out.println( dft.format(now) + " start");
 		
-		int length = 4;
+		int length = ;
 		double[] start_array = producer(length);
 		now = new Date();
 		System.out.println( dft.format(now) + " produced " + length);
-		System.out.println( Arrays.toString(start_array) );
+		//System.out.println( Arrays.toString(start_array) );
 		
 		double[] end_array1 = sort(start_array);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by sort()");
-		System.out.println( Arrays.toString(end_array1) );
+		//System.out.println( Arrays.toString(end_array1) );
+		
 		
 		double[] end_array2 = Qsort(start_array);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by Qsort()");
-		System.out.println( Arrays.toString(end_array2) );
+		//System.out.println( Arrays.toString(end_array2) );
 		
 		demo(0);
 		now = new Date();
@@ -65,14 +66,16 @@ public class iteration
 	public static double[] Qsort(double[] array)
 	{
 		double temp = 0;
+		
 		double[] a = array;
+		int len = a.length;
 		//System.out.println( Arrays.toString(a) );
 		if(a.length <= 1)
 		{
 			return a;
 		}
 		int j = 0;
-		for(int i = 1; i < a.length; i++)
+		for(int i = 1; i < len; i++)
 			if(a[i] < a[0])
 			{
 				j++;
@@ -85,12 +88,12 @@ public class iteration
 		a[0] = temp;
 
 		double[] a_L = new double[j+1];
-		double[] a_R = new double[a.length-j-1];
+		double[] a_R = new double[len-j-1];
 		
-		a_L = Arrays.copyOfRange(a, 0, j);
-		a_R = Arrays.copyOfRange(a, j+1, a.length-1);
-		System.out.println( Arrays.toString(a_L) );
-		System.out.println( Arrays.toString(a_R) );
+		a_L = Arrays.copyOfRange(a, 0, j+1);
+		a_R = Arrays.copyOfRange(a, j+1, len);
+		//System.out.println( Arrays.toString(a_L) );
+		//System.out.println( Arrays.toString(a_R) );
 		
 		double[] a_L_new = new double[a_L.length];
 		a_L_new = Qsort(a_L);
