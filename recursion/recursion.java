@@ -18,12 +18,12 @@ public class recursion
 		double[] start_array = producer(length);
 		now = new Date();
 		System.out.println( dft.format(now) + " array produced " + length);
-		//System.out.println( Arrays.toString(start_array) );
+		System.out.println( Arrays.toString(start_array) );
 		
 		double[] end_array1 = sort(start_array);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by sort()");
-		//System.out.println( Arrays.toString(end_array1) );
+		System.out.println( Arrays.toString(end_array1) );
 		
 		//double[] end_array2 = Qsort(start_array);
 		double[] end_array2 = start_array;
@@ -31,7 +31,7 @@ public class recursion
 		//Arrays.sort(end_array2);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by Qsort()");
-		//System.out.println( Arrays.toString(end_array2) );
+		System.out.println( Arrays.toString(end_array2) );
 		
 		demo(length);
 		now = new Date();
