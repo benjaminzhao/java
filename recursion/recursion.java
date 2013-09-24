@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 import java.lang.Math.*;
 import java.io.*;
 
-
+//notice: use -Xss for set stack size
 public class recursion
 {
 	public static int cnt = 0;
@@ -25,24 +25,15 @@ public class recursion
 		System.out.println( dft.format(now) + " sorted by sort()");
 		//System.out.println( Arrays.toString(end_array1) );
 		
-		try
-		{
-			//double[] end_array2 = Qsort(start_array);
-			double[] end_array2 = start_array;
-			Arrays.sort(end_array2);
-			System.out.println( "Qsort "+ cnt);
-		}
-		catch(Throwable e)
-		{
-			System.out.println( "Qsort "+ cnt);
-			System.err.println( "catch exception: " + e.getMessage());//
-			return; // e;
-		}
+		//double[] end_array2 = Qsort(start_array);
+		double[] end_array2 = start_array;
+		Qsort1(end_array2, 0, length);
+		//Arrays.sort(end_array2);
 		now = new Date();
 		System.out.println( dft.format(now) + " sorted by Qsort()");
+		//System.out.println( Arrays.toString(end_array2) );
 		
-		
-		//demo(length);
+		demo(length);
 		now = new Date();
 		System.out.println( dft.format(now) + " done");
 	}
@@ -79,7 +70,6 @@ public class recursion
 		double[] a = Arrays.copyOfRange(array, 0, array.length);
 		int len = a.length;
 		cnt++;
-		//System.out.println( Arrays.toString(a) );
 		if(len <= 1)
 		{
 			return a;
@@ -97,30 +87,42 @@ public class recursion
 		a[j] = a[0];
 		a[0] = temp;
 
-//		double[] a_L = new double[j+1];
-//		a_L = Arrays.copyOfRange(a, 0, j+1);//0~j
-//		double[] a_L_new = new double[a_L.length];
-//		a_L_new = Qsort(a_L);	
 		double[] a_L = Arrays.copyOfRange(a, 0, j+1);
 		double[] a_L_new = Qsort(a_L);
-		//System.out.println( cnt + " " + Arrays.toString(a_L) );
-		//System.out.println( Arrays.toString(a_L_new) );
 		
-//		double[] a_R = new double[len-j-1];
-//		a_R = Arrays.copyOfRange(a, j+1, len);//j+1~len-1
-//		double[] a_R_new = new double[a_R.length];
-//		a_R_new = Qsort(a_R);
 		double[] a_R = Arrays.copyOfRange(a, j+1, len);
 		double[] a_R_new = Qsort(a_R);
-		//System.out.println( cnt + " " + Arrays.toString(a_R) );
-		//System.out.println( cnt + " " +a_R_new.length );
-		
+
 		double[] a_LR = new double[a_L_new.length+a_R_new.length];
 		System.arraycopy(a_L_new,0, a_LR, 0, a_L_new.length);
 		System.arraycopy(a_R_new,0, a_LR, a_L_new.length, a_R_new.length);
 		return a_LR;
 	}
 	
+	
+	public static void Qsort1(double[] array, int from, int to)
+	{
+		double temp = 0;
+		int len = to-from;
+		
+		if(len <= 1)
+			return;
+		int j = from;
+		for(int i = from + 1; i < to; i++)
+			if(array[i] < array[from])
+			{
+				j++;
+				temp = array[j];
+				array[j] = array[i];
+				array[i] = temp;
+			}
+		temp = array[j];
+		array[j] = array[from];
+		array[from] = temp;
+		
+		Qsort1(array, 0,   j+1); // 0   ~ j
+		Qsort1(array, j+1, to); // j+1 ~ len-1
+	}
 	//simple demo function
 	public static void demo(int i)
 	{
@@ -128,8 +130,8 @@ public class recursion
 		i--;
 		if(i > 0)
 			demo(i);
-		else
-			System.out.println("this is step: " + i);
+//		else
+//			System.out.println("this is step: " + i);
 	}
 	
 }
