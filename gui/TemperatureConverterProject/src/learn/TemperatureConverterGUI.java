@@ -10,17 +10,30 @@
  */
 package learn;
 
+import	java.lang.*;
+import	java.util.*;
+import	java.awt.*;
+import	javax.swing.*;
+import     javax.swing.event.*;
+import	javax.swing.text.*;
+import     javax.swing.undo.*;
 /**
  *
  * @author benjamin
  */
 public class TemperatureConverterGUI extends javax.swing.JFrame {
 
+	protected UndoManager undolist = new UndoManager();
+	AbstractDocument doc;
+	
 	/** Creates new form TemperatureConverterGUI */
 	public TemperatureConverterGUI() {
 		initComponents();
+			
+		doc = (AbstractDocument) Celsius_TextField.getDocument();;
+		doc.addUndoableEditListener(new MyUndoableEditListener());
 	}
-
+	
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is
@@ -30,102 +43,267 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-
-        jMenu3.setText("File");
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
-
-        jButton1.setText("jButton1");
+        Main_Panel = new javax.swing.JPanel();
+        Celsius_TextField = new javax.swing.JTextField();
+        Fahrenheit_TextField = new javax.swing.JTextField();
+        Celsius_Label = new javax.swing.JLabel();
+        Fahrenheit_Label = new javax.swing.JLabel();
+        X_Label = new javax.swing.JLabel();
+        Y_Label = new javax.swing.JLabel();
+        MenuBar = new javax.swing.JMenuBar();
+        Open_Menu = new javax.swing.JMenu();
+        Open_MenuItem = new javax.swing.JMenuItem();
+        Exit_MenuItem = new javax.swing.JMenuItem();
+        Edit_Menu = new javax.swing.JMenu();
+        Undo_MenuItem = new javax.swing.JMenuItem();
+        Redo_MenuItem = new javax.swing.JMenuItem();
+        About_Menu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TemperatureConverter");
+        setBackground(new java.awt.Color(255, 255, 153));
+        setName("frame1"); // NOI18N
+        setResizable(false);
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        Main_Panel.setBackground(new java.awt.Color(255, 204, 0));
+        Main_Panel.setPreferredSize(new java.awt.Dimension(150, 80));
+
+        Celsius_TextField.setColumns(10);
+        Celsius_TextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        Celsius_TextField.setToolTipText("input number");
+        Celsius_TextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        Celsius_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Celsius_TextFieldKeyReleased(evt);
             }
         });
 
-        jLabel1.setText("Celsius");
-        jLabel1.setToolTipText("");
+        Fahrenheit_TextField.setColumns(10);
+        Fahrenheit_TextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        Fahrenheit_TextField.setToolTipText("input number");
+        Fahrenheit_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Fahrenheit_TextFieldKeyReleased(evt);
+            }
+        });
 
-        jLabel2.setText("Fahrenheit");
+        Celsius_Label.setText("Celsius");
+        Celsius_Label.setToolTipText("");
 
-        jTextField2.setText("jTextField2");
+        Fahrenheit_Label.setText("Fahrenheit");
 
-        jMenu1.setText("File");
+        javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
+        Main_Panel.setLayout(Main_PanelLayout);
+        Main_PanelLayout.setHorizontalGroup(
+            Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Main_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Main_PanelLayout.createSequentialGroup()
+                        .addComponent(Celsius_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Celsius_Label))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
+                        .addComponent(Fahrenheit_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Fahrenheit_Label)))
+                .addContainerGap())
+        );
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
-        jMenuItem1.setText("Open");
-        jMenu1.add(jMenuItem1);
+        Main_PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Celsius_TextField, Fahrenheit_TextField});
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, 0));
-        jMenuItem2.setText("Exit");
-        jMenu1.add(jMenuItem2);
+        Main_PanelLayout.setVerticalGroup(
+            Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Main_PanelLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Celsius_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Celsius_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Fahrenheit_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Fahrenheit_Label))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
-        jMenuBar1.add(jMenu1);
+        Main_PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Celsius_TextField, Fahrenheit_TextField});
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        Celsius_TextField.getAccessibleContext().setAccessibleName("");
 
-        setJMenuBar(jMenuBar1);
+        X_Label.setText("X=0");
+
+        Y_Label.setText("Y=0");
+
+        MenuBar.setBackground(new java.awt.Color(102, 102, 0));
+
+        Open_Menu.setText("File");
+
+        Open_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        Open_MenuItem.setText("Open");
+        Open_Menu.add(Open_MenuItem);
+
+        Exit_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_MASK));
+        Exit_MenuItem.setText("Exit");
+        Open_Menu.add(Exit_MenuItem);
+
+        MenuBar.add(Open_Menu);
+
+        Edit_Menu.setText("Edit");
+
+        Undo_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        Undo_MenuItem.setText("Undo");
+        Undo_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Undo_MenuItemActionPerformed(evt);
+            }
+        });
+        Edit_Menu.add(Undo_MenuItem);
+
+        Redo_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        Redo_MenuItem.setText("Redo");
+        Redo_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Redo_MenuItemActionPerformed(evt);
+            }
+        });
+        Edit_Menu.add(Redo_MenuItem);
+
+        MenuBar.add(Edit_Menu);
+
+        About_Menu.setText("About");
+        MenuBar.add(About_Menu);
+
+        setJMenuBar(MenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(X_Label)
+                .addContainerGap(122, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Y_Label)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(X_Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Y_Label)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        X_Label.getAccessibleContext().setAccessibleName("0");
 
         getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+	private void Celsius_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Celsius_TextFieldKeyReleased
 		// TODO add your handling code here:
-	}//GEN-LAST:event_jTextField1ActionPerformed
+		char key = evt.getKeyChar();
+		if ( (key>='a' && key<='z') || (key>='A' && key<='Z') || (key == '/') )
+		{
+			Celsius_TextField.setEditable(false);
+		}
+		else
+		{
+			//Celsius_TextField.setText(Character.toString(key));
+			Celsius_TextField.setEditable(true);
+			String input = Celsius_TextField.getText();
+			if(!input.isEmpty())
+			{
+				double tempFahrenheit = Double.parseDouble(input)*1.8+32;
+				Fahrenheit_TextField.setText(Double.toString(tempFahrenheit));
+			}
+		}
+	}//GEN-LAST:event_Celsius_TextFieldKeyReleased
 
+	private void Fahrenheit_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Fahrenheit_TextFieldKeyReleased
+		// TODO add your handling code here:
+		char key = evt.getKeyChar();
+		if ( (key>='a' && key<='z') || (key>='A' && key<='Z') || (key == '/') )
+		{
+			Fahrenheit_TextField.setEditable(false);
+		}
+		else
+		{
+			//Celsius_TextField.setText(Character.toString(key));
+			Fahrenheit_TextField.setEditable(true);
+			String input = Fahrenheit_TextField.getText();
+			if(!input.isEmpty())
+			{
+				double tempCelsius= (Double.parseDouble(input)-32)/1.8;
+				Celsius_TextField.setText(Double.toString(tempCelsius));
+			}
+		}
+	}//GEN-LAST:event_Fahrenheit_TextFieldKeyReleased
+
+	private void Undo_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Undo_MenuItemActionPerformed
+		// TODO add your handling code here:
+		try{
+			undolist.undo();
+		}catch(CannotUndoException ex){
+			System.out.println("Unable to undo: "+ex);
+			ex.printStackTrace();
+		}
+		updateUndoState();
+		updateRedoState();
+	}//GEN-LAST:event_Undo_MenuItemActionPerformed
+
+	private void Redo_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Redo_MenuItemActionPerformed
+		// TODO add your handling code here:
+		try{
+			undolist.redo();
+		}catch(CannotRedoException ex){
+			System.out.println("Unable to redo: "+ex);
+			ex.printStackTrace();
+		}
+		updateRedoState();
+		updateUndoState();
+	}//GEN-LAST:event_Redo_MenuItemActionPerformed
+
+	protected class MyUndoableEditListener implements UndoableEditListener{
+		public void undoableEditHappened(UndoableEditEvent e) {
+			undolist.addEdit(e.getEdit());
+			updateUndoState();
+			updateRedoState();
+		}
+	}
+	protected void updateUndoState(){
+		if (undolist.canUndo()){
+			Undo_MenuItem.setEnabled(true);
+			//Undo_MenuItem.putValue(Action.NAME, undo.getUndoPresentationName());
+		}else{
+			Undo_MenuItem.setEnabled(false);
+			//Undo_MenuItem.putValue(Action.NAME, "Undo");
+		}
+	}
+
+	protected void updateRedoState(){
+		if (undolist.canRedo()){
+			Redo_MenuItem.setEnabled(true);
+			//Redo_MenuItem.putValue(Action.NAME, undo.getRedoPresentationName());
+		}else{
+			Redo_MenuItem.setEnabled(false);
+			//Redo_MenuItem.putValue(Action.NAME, "Redo");
+		}
+	}
+
+//	PointerInfo a =MouseInfo.getPointerInfo();
+//	Point b = getLocation();
+//	int x = (int) b.getX();
+//	int y = (int) b.getY();
+//		X_Label.setText(x);
+//		Y_Label.setText(y);
 	/**
 	 * @param args the command line arguments
 	 */
@@ -162,18 +340,20 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JMenu About_Menu;
+    private javax.swing.JLabel Celsius_Label;
+    private javax.swing.JTextField Celsius_TextField;
+    private javax.swing.JMenu Edit_Menu;
+    private javax.swing.JMenuItem Exit_MenuItem;
+    private javax.swing.JLabel Fahrenheit_Label;
+    private javax.swing.JTextField Fahrenheit_TextField;
+    private javax.swing.JPanel Main_Panel;
+    private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenu Open_Menu;
+    private javax.swing.JMenuItem Open_MenuItem;
+    private javax.swing.JMenuItem Redo_MenuItem;
+    private javax.swing.JMenuItem Undo_MenuItem;
+    private javax.swing.JLabel X_Label;
+    private javax.swing.JLabel Y_Label;
     // End of variables declaration//GEN-END:variables
 }
