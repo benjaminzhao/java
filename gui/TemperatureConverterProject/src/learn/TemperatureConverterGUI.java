@@ -13,6 +13,7 @@ package learn;
 import	java.lang.*;
 import	java.util.*;
 import	java.awt.*;
+import     java.awt.event.*;
 import	javax.swing.*;
 import     javax.swing.event.*;
 import	javax.swing.text.*;
@@ -24,14 +25,24 @@ import     javax.swing.undo.*;
 public class TemperatureConverterGUI extends javax.swing.JFrame {
 
 	protected UndoManager undolist = new UndoManager();
-	AbstractDocument doc;
+	AbstractDocument doc1;
+	AbstractDocument doc2;
 	
 	/** Creates new form TemperatureConverterGUI */
 	public TemperatureConverterGUI() {
 		initComponents();
 			
-		doc = (AbstractDocument) Celsius_TextField.getDocument();;
-		doc.addUndoableEditListener(new MyUndoableEditListener());
+		doc1 = (AbstractDocument) Celsius_TextField.getDocument();;
+		doc1.addUndoableEditListener(new MyUndoableEditListener());
+//		doc2 = (AbstractDocument) Fahrenheit_TextField.getDocument();;
+//		doc2.addUndoableEditListener(new MyUndoableEditListener());
+		
+//		Exit_MenuItem.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent event) {
+//				
+//			}
+//		});
 	}
 	
 	/** This method is called from within the constructor to
@@ -58,6 +69,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         Undo_MenuItem = new javax.swing.JMenuItem();
         Redo_MenuItem = new javax.swing.JMenuItem();
         About_Menu = new javax.swing.JMenu();
+        About_MenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TemperatureConverter");
@@ -144,6 +156,11 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 
         Exit_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_MASK));
         Exit_MenuItem.setText("Exit");
+        Exit_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Exit_MenuItemActionPerformed(evt);
+            }
+        });
         Open_Menu.add(Exit_MenuItem);
 
         MenuBar.add(Open_Menu);
@@ -171,6 +188,15 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         MenuBar.add(Edit_Menu);
 
         About_Menu.setText("About");
+        About_Menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                About_MenuActionPerformed(evt);
+            }
+        });
+
+        About_MenuItem.setText("About");
+        About_Menu.add(About_MenuItem);
+
         MenuBar.add(About_Menu);
 
         setJMenuBar(MenuBar);
@@ -271,6 +297,22 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 		updateUndoState();
 	}//GEN-LAST:event_Redo_MenuItemActionPerformed
 
+	private void Exit_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_MenuItemActionPerformed
+		// TODO add your handling code here:
+		System.exit(0);
+	}//GEN-LAST:event_Exit_MenuItemActionPerformed
+
+	private void About_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_About_MenuActionPerformed
+		// TODO add your handling code here:
+		System.out.println("about clicked...");
+		JFrame about = new JFrame("About");
+		about.setSize(200, 200);
+		about.setLayout(null);
+		about.setResizable(false);
+		about.setLocationRelativeTo(null);
+		about.setVisible(true);
+	}//GEN-LAST:event_About_MenuActionPerformed
+
 	protected class MyUndoableEditListener implements UndoableEditListener{
 		public void undoableEditHappened(UndoableEditEvent e) {
 			undolist.addEdit(e.getEdit());
@@ -341,6 +383,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu About_Menu;
+    private javax.swing.JMenuItem About_MenuItem;
     private javax.swing.JLabel Celsius_Label;
     private javax.swing.JTextField Celsius_TextField;
     private javax.swing.JMenu Edit_Menu;
