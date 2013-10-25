@@ -75,8 +75,8 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		
 		JMenu about = new JMenu("About");
 		bar.add(about);
-		JMenuItem abouti = new JMenuItem("Info");
-		abouti.addActionListener(new ActionListener(){
+		JMenuItem aboutinfo = new JMenuItem("Info");
+		aboutinfo.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				System.out.println("about clicked...");
@@ -92,7 +92,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 				info.add(version);
 			}
 		});
-		about.add(abouti);
+		about.add(aboutinfo);
 		
 		TetrisMain tm = new TetrisMain();
 		tm.setBounds(0,	25, WIDTH, HEIGHT-25);
