@@ -195,6 +195,11 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         });
 
         About_MenuItem.setText("About");
+        About_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                About_MenuItemActionPerformed(evt);
+            }
+        });
         About_Menu.add(About_MenuItem);
 
         MenuBar.add(About_Menu);
@@ -304,6 +309,11 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 
 	private void About_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_About_MenuActionPerformed
 		// TODO add your handling code here:
+		
+	}//GEN-LAST:event_About_MenuActionPerformed
+
+	private void About_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_About_MenuItemActionPerformed
+		// TODO add your handling code here:
 		System.out.println("about clicked...");
 		JFrame about = new JFrame("About");
 		about.setSize(200, 200);
@@ -311,7 +321,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 		about.setResizable(false);
 		about.setLocationRelativeTo(null);
 		about.setVisible(true);
-	}//GEN-LAST:event_About_MenuActionPerformed
+	}//GEN-LAST:event_About_MenuItemActionPerformed
 
 	protected class MyUndoableEditListener implements UndoableEditListener{
 		public void undoableEditHappened(UndoableEditEvent e) {
