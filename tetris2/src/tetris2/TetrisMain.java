@@ -13,12 +13,14 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 	
 	public static void main(String args[]){
 		
-		JFrame frame = new JFrame("Tetris");
+		final JFrame frame = new JFrame("Tetris");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setLayout(null);
+		
+		KeyGetter.loadKeys();
 		
 		JMenuBar bar = new JMenuBar();
 		bar.setBounds(0, 0, WIDTH, 25);
@@ -46,6 +48,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 				alert.setResizable(false);
 				alert.setLocationRelativeTo(null);
 				alert.setVisible(true);
+				alert.setAlwaysOnTop(true);
 				
 				JLabel score = new JLabel("Your High Score is: "+highscore);
 				score.setBounds(35, 50, 130, 40);
@@ -61,6 +64,12 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 				alert.add(okayButton);
 			}
 		});
+		JMenuItem options = new JMenuItem("Options");
+		options.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Config.openConfig(frame);
+			}
+		});
 		JMenuItem exit = new JMenuItem("Exit");
 		exit.addActionListener(new ActionListener(){
 			@Override
@@ -71,6 +80,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		});
 		file.add(newGame);
 		file.add(highScore);
+		file.add(options);
 		file.add(exit);
 		
 		JMenu about = new JMenu("About");
