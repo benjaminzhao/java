@@ -2,6 +2,7 @@ package tetris2;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import java.util.*;
 
@@ -64,6 +65,67 @@ public class Config {
 		Config.Harddrop = choices.get(3).getSelectedItem();
 		Config.Rotate = choices.get(4).getSelectedItem();
 		Config.Pause = choices.get(5).getSelectedItem();
+		try{
+			saveConfig();
+		}
+		catch(Exception e){
+			e.printStackTrace();			
+		}
+	}
+	
+	public static void loadConfig()throws Exception {
+		File configfile = new File(getDefaultDir(),"/Config.txt");
+		if(!configfile.exists()){
+			configfile.createNewFile();
+			saveConfig();
+		}
+		//do load
+		Scanner s = new Scanner(configfile);
+		HashMap<String, String> values = new HashMap<String, String>();
+		while(s.hasNextLine()){
+			String[] entry = s.nextLine().split(":");
+			String key = entry[0];
+			String value = entry[1];
+			values.put(key, value);
+		}
+		if(values.size() != 6)
+			saveConfig();
+		
+		Config.Left = values.get("left");
+		Config.Right = values.get("right");
+		Config.Down = values.get("down");
+		Config.Harddrop = values.get("harddrop");
+		Config.Rotate = values.get("rotate");
+		Config.Pause =values.get("pause");
+	}
+	
+	public static void saveConfig() throws Exception {
+		File configfile = new File(getDefaultDir(),"/Config.txt");
+		if(!configfile.exists()){
+			configfile.createNewFile();
+		}
+		//do save to file
+		PrintWriter pw = new PrintWriter(configfile);
+		pw.println("left:" + Config.Left);
+		pw.println("right:" + Config.Right);
+		pw.println("down:" + Config.Down);
+		pw.println("harddrop:" + Config.Harddrop);
+		pw.println("rotate:" + Config.Rotate);
+		pw.println("pause:" + Config.Pause);
+		pw.close();
+	}
+	
+	public static String getDefaultDir(){
+		String OS = System.getProperty("os.name");
+		if(OS.contains("Win")){
+			String dir = System.getProperty("user.dir");
+			//System.out.println(dir);
+			return dir;
+		}
+		if(OS.contains("MAC")){
+			return System.getProperty("user.home")+"Library/Application Support";
+		}
+		return System.getProperty("user.home");
 	}
 	
 	public static Choice addChoice(String name, JFrame frame, int x, int y){

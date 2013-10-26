@@ -11,7 +11,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 
 	public static final int WIDTH = 400, HEIGHT = 565;
 	
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		
 		final JFrame frame = new JFrame("Tetris");
 		frame.setSize(WIDTH, HEIGHT);
@@ -21,6 +21,13 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		frame.setLayout(null);
 		
 		KeyGetter.loadKeys();
+		try{
+			Config.loadConfig();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		
 		JMenuBar bar = new JMenuBar();
 		bar.setBounds(0, 0, WIDTH, 25);

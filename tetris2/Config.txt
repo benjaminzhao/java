@@ -1,0 +1,6 @@
+left:向左箭头
+right:向右箭头
+down:向下箭头
+harddrop:向上箭头
+rotate:空格
+pause:P
