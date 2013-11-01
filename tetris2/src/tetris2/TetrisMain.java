@@ -157,6 +157,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 	}
 	
 	public void keyTyped(KeyEvent e){
+		KeyGetter.keyNames
 		
 	}
 	
