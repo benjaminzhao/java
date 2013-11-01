@@ -7,12 +7,21 @@ import java.awt.image.*;
 import javax.swing.*;
 
 
-public class TetrisMain extends Canvas implements Runnable, KeyListener{
+public class TetrisMain extends JFrame{
 
 	public static final int WIDTH = 400, HEIGHT = 565;
 
 	
-	public static void main(String args[]) {
+	
+	
+	public TetrisMain()
+	{
+		GUI_init();
+		Board bd = new Board(this);
+		add(bd);
+	}
+	
+	public static void GUI_init(){
 		
 		final JFrame frame = new JFrame("Tetris");
 		frame.setSize(WIDTH, HEIGHT);
@@ -28,6 +37,16 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		frame.addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyPressed(KeyEvent e){	
+				keypressed(e);
+			}
+			public void keyReleased(KeyEvent e){
+				keyreleased(e);
+			}
+		});
 		
 		JMenuBar bar = new JMenuBar();
 		bar.setBounds(0, 0, WIDTH, 25);
@@ -96,7 +115,7 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		aboutinfo.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				System.out.println("about clicked...");
+				//System.out.println("about clicked...");
 				final JFrame info = new JFrame("Info");
 				info.setSize(200, 200);
 				info.setLayout(null);
@@ -111,18 +130,25 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		});
 		about.add(aboutinfo);
 		
-		TetrisMain tm = new TetrisMain();
-		tm.setBounds(0,	25, WIDTH, HEIGHT-25);
-		frame.add(tm);
-		
+		//TetrisMain tm = new TetrisMain();
+		//tm.setBounds(0, 25, WIDTH, HEIGHT-25);
+		//frame.add(tm);
 		frame.setVisible(true);
-		tm.start();
+		//tm.start();
+	}
+	
+	public static void main(String args[]) {
+		TetrisMain game = new TetrisMain();
+		game.setBounds(0, 25, WIDTH, HEIGHT-25);
+		
+		//game.start();
 	}
 
 	public void start(){
-		Thread t = new Thread(this);
-		t.setPriority(Thread.MIN_PRIORITY);
-		t.start();
+		
+//		Thread t = new Thread(this);
+//		t.setPriority(Thread.MIN_PRIORITY);
+//		t.start();
 	}
 	
 	public void run(){
@@ -158,12 +184,47 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		g.drawString("Tetris", 150,	80);
 		
 	}
+
+
 	
-	public void keyTyped(KeyEvent e){
+	public static void keypressed(KeyEvent e){
 		
+		
+		
+		String abc;
+		int keycode = e.getKeyCode();
+		
+		if(KeyEvent.getKeyText(keycode).equals(Config.Left)){
+			
+			abc = "left";
+		}
+		else if(KeyEvent.getKeyText(keycode).equals(Config.Right)){
+			abc = "right";
+		}
+		else if(KeyEvent.getKeyText(keycode).equals(Config.Down)){
+			abc = "down";
+			//tryMove();
+		}
+		else if(KeyEvent.getKeyText(keycode).equals(Config.Rotate)){
+			abc = "rotate";
+			//Shape.rotateLeft();
+		}
+		else if(KeyEvent.getKeyText(keycode).equals(Config.Harddrop)){
+			abc = "harddrop";
+		}
+		else if(KeyEvent.getKeyText(keycode).equals(Config.Pause)){
+			abc = "pause";
+		}
+		else{
+			abc = "other";
+		}
+		System.out.println("key "+abc+" pressed");
 	}
 	
-	public void keyReleased(KeyEvent e){
-		
+	public static void keyreleased(KeyEvent e){
+		int keycode = e.getKeyCode();
+		if(keycode == KeyEvent.VK_S){
+			
+		}
 	}
 }

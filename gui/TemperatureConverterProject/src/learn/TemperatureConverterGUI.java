@@ -37,6 +37,14 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 //		doc2 = (AbstractDocument) Fahrenheit_TextField.getDocument();;
 //		doc2.addUndoableEditListener(new MyUndoableEditListener());
 		
+		this.addKeyListener(new KeyAdapter(){
+			public void KeyPressed(KeyEvent e){
+				System.out.println("key pressed");
+				int keycode = e.getKeyCode();
+				System.out.println(keycode);	
+			}
+		});
+		
 //		Exit_MenuItem.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent event) {
@@ -44,7 +52,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 //			}
 //		});
 	}
-	
+
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is

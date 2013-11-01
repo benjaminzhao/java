@@ -13,8 +13,11 @@ public class Config {
 	private static ArrayList<Choice> choices;
 	
 	public static void openConfig(JFrame frame){
+		
 		choices = new ArrayList<Choice>();
+		
 		final JFrame option = new JFrame("Option");
+		
 		option.setSize(350,300);
 		option.setResizable(false);
 		option.setLocationRelativeTo(frame);

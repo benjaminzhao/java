@@ -23,11 +23,11 @@ public class Board extends JPanel implements ActionListener{
 	
 	static Timer timer;
 	
-	public Board(){
+	public Board(TetrisMain parent){
 		//setFocusable(true);
-		curPiece = new Shape();
-		timer = new Timer(400,this);
-		timer.start();
+		//curPiece = new Shape();
+		//timer = new Timer(400,this);
+		//timer.start();
 		
 		
 	}
@@ -40,8 +40,6 @@ public class Board extends JPanel implements ActionListener{
 			oneLineDown();
 		}
 	}
-	
-	
 	
 	public void start(){
 		
@@ -76,7 +74,7 @@ public class Board extends JPanel implements ActionListener{
 	}
 	
 	private boolean tryMove(Shape newPiece, int newX, int newY){
-		
+		return true;
 	}
 	
 	private void removeFullLines(){
@@ -87,17 +85,5 @@ public class Board extends JPanel implements ActionListener{
 		
 	}
 	
-	class TAdapter extends KeyAdapter{
-		public void keyPressed(KeyEvent e){
-			if(!isStarted || curPiece.getShape() == Tetriminoes.NoShape){
-				return;
-			}
-			int keycode = e.getKeyCode();
-			
-			if()
-			
-				
-		}
-	}
 	
 }
