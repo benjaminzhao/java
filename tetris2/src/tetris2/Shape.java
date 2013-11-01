@@ -3,7 +3,7 @@ package tetris2;
 import java.util.*;
 import java.lang.*;
 
-public class shape {
+public class Shape {
 
 	enum Tetriminoes{NoShape, ZShape, SShape, LineShape, TShape, SquareShape, LShape, MirroredLShape};
 	
@@ -11,7 +11,7 @@ public class shape {
 	private int coords[][];
 	private int[][][] coordsTable;
 	
-	public shape(){
+	public Shape(){
 		coords = new int[4][2];
 		setShape(Tetriminoes.NoShape);
 	}
@@ -73,11 +73,11 @@ public class shape {
 		setShape(values[x]);
 	}
 
-	public shape rotateLeft(){
+	public Shape rotateLeft(){
 		if(pieceShape == Tetriminoes.SquareShape)
 			return this;
 		
-		shape result = new shape();
+		Shape result = new Shape();
 		result.pieceShape = pieceShape;
 		
 		for(int i=0; i<4; i++){
@@ -87,11 +87,11 @@ public class shape {
 		return result;
 	}
 
-	public shape rotateRight(){
+	public Shape rotateRight(){
 		if(pieceShape == Tetriminoes.SquareShape)
 			return this;
 		
-		shape result = new shape();
+		Shape result = new Shape();
 		result.pieceShape = pieceShape;
 		
 		for(int i=0; i<4; i++){
@@ -99,5 +99,10 @@ public class shape {
 			result.setY(i, x(i));
 		}
 		return result;
+	}
+
+	public void newPiece() {
+		// TODO Auto-generated method stub
+		
 	}
 }

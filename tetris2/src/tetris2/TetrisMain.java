@@ -10,6 +10,7 @@ import javax.swing.*;
 public class TetrisMain extends Canvas implements Runnable, KeyListener{
 
 	public static final int WIDTH = 400, HEIGHT = 565;
+
 	
 	public static void main(String args[]) {
 		
@@ -27,7 +28,6 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
 		
 		JMenuBar bar = new JMenuBar();
 		bar.setBounds(0, 0, WIDTH, 25);
@@ -143,7 +143,10 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 	
 	public void update(){
 		
-		
+	}
+	
+	public void pause(){
+	
 	}
 	
 	public void render(Graphics2D g){
@@ -157,7 +160,6 @@ public class TetrisMain extends Canvas implements Runnable, KeyListener{
 	}
 	
 	public void keyTyped(KeyEvent e){
-		KeyGetter.keyNames
 		
 	}
 	
