@@ -141,7 +141,7 @@ public class TetrisMain extends JFrame{
 		TetrisMain game = new TetrisMain();
 		game.setBounds(0, 25, WIDTH, HEIGHT-25);
 		
-		//game.start();
+		game.start();
 	}
 
 	public void start(){
@@ -149,6 +149,7 @@ public class TetrisMain extends JFrame{
 //		Thread t = new Thread(this);
 //		t.setPriority(Thread.MIN_PRIORITY);
 //		t.start();
+		
 	}
 	
 	public void run(){
@@ -188,8 +189,6 @@ public class TetrisMain extends JFrame{
 
 	
 	public static void keypressed(KeyEvent e){
-		
-		
 		
 		String abc;
 		int keycode = e.getKeyCode();
