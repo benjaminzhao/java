@@ -123,9 +123,17 @@ public class TetrisMain extends JFrame{
 				info.setLocationRelativeTo(null);
 				info.setVisible(true);
 				
+				JLabel author = new JLabel("BB&HH Software");
+				author.setBounds(35, 30, 130, 40);
+				info.add(author);
+				
 				JLabel version = new JLabel("Ver 1.0");
 				version.setBounds(35, 50, 130, 40);
 				info.add(version);
+				
+				JLabel update = new JLabel("2013.11.01");
+				update.setBounds(35, 70, 130, 40);
+				info.add(update);
 			}
 		});
 		about.add(aboutinfo);
