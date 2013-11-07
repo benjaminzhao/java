@@ -18,18 +18,18 @@ public class Shape {
 	
 	public void setShape(Tetriminoes sh){
 		coordsTable = new int[][][]{
-				{{ 0, 0},{ 0, 0},{ 0, 0},{ 0, 0}},
-				{{ 0,-1},{ 0, 0},{-1, 0},{-1, 1}},
-				{{ 0,-1},{ 0, 0},{ 1, 0},{ 1, 1}},
-				{{ 0,-1},{ 0, 0},{ 0, 1},{ 0, 2}},
-				{{-1, 0},{ 0, 0},{ 1, 0},{ 0, 1}},
-				{{ 0, 0},{ 1, 0},{ 0, 1},{ 1, 1}},
-				{{-1,-1},{ 0,-1},{ 0, 0},{ 0, 1}},
-				{{ 1,-1},{ 0,-1},{ 0, 0},{ 0, 1}}
+				{{ 0, 0},{ 0, 0},{ 0, 0},{ 0, 0}},//no shape
+				{{ 0,-1},{ 0, 0},{-1, 0},{-1, 1}},//-|_ Z shape
+				{{ 0,-1},{ 0, 0},{ 1, 0},{ 1, 1}},//_|- S shape
+				{{ 0,-1},{ 0, 0},{ 0, 1},{ 0, 2}},//Line shape
+				{{-1, 0},{ 0, 0},{ 1, 0},{ 0, 1}},//T shape
+				{{ 0, 0},{ 1, 0},{ 0, 1},{ 1, 1}},//square shape
+				{{-1,-1},{ 0,-1},{ 0, 0},{ 0, 1}},//L shape
+				{{ 1,-1},{ 0,-1},{ 0, 0},{ 0, 1}}//_| shape
 		};
 		
 		for(int i=0; i<4; i++){
-			for(int j=0; j<2; j++){
+			for(int j=0; j<2; ++j){
 				coords[i][j] = coordsTable[sh.ordinal()][i][j];
 			}
 		}
@@ -68,7 +68,7 @@ public class Shape {
 	
 	public void setRandomShape(){
 		Random r = new Random();
-		int x = Math.abs(r.nextInt()%7+1);
+		int x = Math.abs(r.nextInt()%7+1);//x=[1-7]
 		Tetriminoes[] values = Tetriminoes.values();
 		setShape(values[x]);
 	}
@@ -80,7 +80,7 @@ public class Shape {
 		Shape result = new Shape();
 		result.pieceShape = pieceShape;
 		
-		for(int i=0; i<4; i++){
+		for(int i=0; i<4; ++i){
 			result.setX(i, y(i));
 			result.setY(i, -x(i));
 		}
@@ -94,15 +94,11 @@ public class Shape {
 		Shape result = new Shape();
 		result.pieceShape = pieceShape;
 		
-		for(int i=0; i<4; i++){
+		for(int i=0; i<4; ++i){
 			result.setX(i, -y(i));
 			result.setY(i, x(i));
 		}
 		return result;
 	}
 
-	public void newPiece() {
-		// TODO Auto-generated method stub
-		
-	}
 }
