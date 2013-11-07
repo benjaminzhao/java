@@ -19,6 +19,8 @@ public class TetrisMain extends JFrame implements ActionListener{
 	boolean isPaused = false;
 	boolean isFallingFinished = false;
 	
+	int highscore = 0;
+	
 	int numLinesRemoved = 0;
 	public int curX = 0;
 	public int curY = 0;
@@ -77,7 +79,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 		highScore.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				int highscore = 0;
+				
 				final JFrame alert = new JFrame("high score");
 				alert.setSize(200, 200);
 				alert.setLayout(null);
@@ -286,10 +288,9 @@ public class TetrisMain extends JFrame implements ActionListener{
 	}
 	
 	private void oneLineDown(){
-		if(!tryMove(curPiece, curX, curY-1)){
+		if(!tryMove(curPiece, curX, curY-1))
 			//if move down failed, piece dropped
 			pieceDropped();
-		}
 	}
 	
 	private void clearBoard(){
@@ -308,7 +309,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 			int y = curY - curPiece.y(i);
 			board[y*BoardWidth+x] = curPiece.getShape();
 		}
-		
+		System.out.println("piece dropped");
 		removeFullLines();
 		
 		if(!isFallingFinished)
@@ -339,6 +340,13 @@ public class TetrisMain extends JFrame implements ActionListener{
 				JLabel gover = new JLabel("Game Over");
 				gover.setBounds(35, 30, 130, 40);
 				gameover.add(gover);
+				
+				highscore = numLinesRemoved;
+				
+				JLabel score = new JLabel("Your Score is "+ highscore);
+				score.setBounds(35, 50, 130, 40);
+				gameover.add(score);
+				
 			}
 		}
 	}
@@ -368,12 +376,14 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		for(int i=BoardHeight-1; i>=0; --i){
 			boolean LineIsFull = true;
+			
 			for(int j=0; j<BoardWidth; ++j){
 				if(shapeAt(j, i) == Tetriminoes.NoShape){
 					LineIsFull =false;
 					break;
 				}
 			}
+			
 			if(LineIsFull){
 				++numFullLines;
 				for(int k=i; k<BoardHeight-1; ++k){
@@ -393,7 +403,6 @@ public class TetrisMain extends JFrame implements ActionListener{
 			repaint();
 		}
 	}
-	
 	
 //	public void render(Graphics2D g){
 //		
@@ -438,7 +447,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 		else{
 			abc = "other";
 		}
-		System.out.println("key "+abc+" pressed");
+		//System.out.println("key "+abc+" pressed");
 	}
 	
 	public static void keyreleased(KeyEvent e){

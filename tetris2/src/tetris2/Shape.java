@@ -68,7 +68,8 @@ public class Shape {
 	
 	public void setRandomShape(){
 		Random r = new Random();
-		int x = Math.abs(r.nextInt()%7+1);//x=[1-7]
+		int x = Math.abs(r.nextInt())%7+1;	//x=[1-7]
+		//System.out.println("shape number "+x);
 		Tetriminoes[] values = Tetriminoes.values();
 		setShape(values[x]);
 	}
