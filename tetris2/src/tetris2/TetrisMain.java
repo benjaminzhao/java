@@ -10,7 +10,7 @@ import tetris2.Shape.Tetriminoes;
 
 public class TetrisMain extends JFrame implements ActionListener{
 
-	public static final int WIDTH = 200, HEIGHT = 425;
+	public static final int WIDTH = 250, HEIGHT = 500+25;
 
 	final int BoardWidth = 10;
 	final int BoardHeight = 20;
@@ -151,30 +151,34 @@ public class TetrisMain extends JFrame implements ActionListener{
 		about.add(aboutinfo);
 		
 		JPanel main_panel = new JPanel();
-		main_panel.setBackground(new java.awt.Color(255, 204, 0));
+		//main_panel.setBackground(new java.awt.Color(255, 200, 0));
 		main_panel.setBounds(0, 25, WIDTH, HEIGHT-25);
 		main_panel.setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT-25));
 		main_panel.setLayout(null);
 		add(main_panel);
 
+		//ImageIcon iL = new ImageIcon(this.getClass().getResource("1.jpg"));
+		//JLabel pic = new JLabel(new ImageIcon(iL.getImage()));
+		//main_panel.add(pic);
 //		setVisible(true);
 //		setFocusable(true);
-		
+		curPiece = new Shape();
+		timer = new Timer(1000,this);
+		board = new Tetriminoes[BoardWidth*BoardHeight];	
+		clearBoard();
 	}
 	
 	public static void main(String args[]) {
+		
 		game = new TetrisMain();
+		
 		game.setLocationRelativeTo(null);
 		game.setVisible(true);
-		
 	}
 
+
 	public void start(){
-		
-		curPiece = new Shape();
-		timer = new Timer(1000,this);
-				
-		board = new Tetriminoes[BoardWidth*BoardHeight];
+
 		clearBoard();
 		
 		if(isPaused)
@@ -183,9 +187,9 @@ public class TetrisMain extends JFrame implements ActionListener{
 		isFallingFinished = false;
 		numLinesRemoved = 0;
 		System.out.println("game starting...");
-		clearBoard();
 		newPiece();
 		timer.start();
+		
 	}
 	
 	public void pause(){
@@ -204,8 +208,8 @@ public class TetrisMain extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(isFallingFinished){
 			isFallingFinished = false;
-			System.out.println("new piece");
 			newPiece();
+			System.out.println("new piece");
 		}else{
 			System.out.println("one line down");
 			oneLineDown();
@@ -225,12 +229,13 @@ public class TetrisMain extends JFrame implements ActionListener{
 	}
 	
 	Tetriminoes shapeAt(int x, int y){
+		
 		return board[(y*BoardWidth)+x];
 	}
 	
 	@Override
 	public void paint(Graphics g){
-		
+		System.out.println("paint start");
 		super.paint(g);
 		
 		int boardTop = (int)(getSize().getHeight()) - BoardHeight * squareHeight();
@@ -252,6 +257,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 				drawSquare(g, 0+x*squareWidth(), boardTop+(BoardHeight-y-1)*squareHeight(), curPiece.getShape());
 			}
 		}
+		System.out.println("paint end");
 	}
 	
 	private void drawSquare(Graphics g, int x, int y, Tetriminoes shape){
@@ -314,14 +320,15 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		if(!isFallingFinished)
 			newPiece();
+		else
+			System.out.println("continue");
 	}
 	
 	private void newPiece(){
 		curPiece.setRandomShape();
-		System.out.println(curPiece.getShape().toString());
-		
-		curX = BoardWidth/2+1;
-		curY = BoardHeight-1+curPiece.minY();
+		//System.out.println(curPiece.getShape().toString());
+		curX = BoardWidth/2;
+		curY = BoardHeight-1-1+curPiece.minY();
 		
 		if(!tryMove(curPiece, curX, curY)){
 			//if new piece can not move, game over
@@ -376,14 +383,14 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		for(int i=BoardHeight-1; i>=0; --i){
 			boolean LineIsFull = true;
-			
+			//check line is full
 			for(int j=0; j<BoardWidth; ++j){
 				if(shapeAt(j, i) == Tetriminoes.NoShape){
 					LineIsFull =false;
 					break;
 				}
 			}
-			
+			//move blocks one line down
 			if(LineIsFull){
 				++numFullLines;
 				for(int k=i; k<BoardHeight-1; ++k){
@@ -400,7 +407,9 @@ public class TetrisMain extends JFrame implements ActionListener{
 			numLinesRemoved += numFullLines;
 			isFallingFinished = true;
 			curPiece.setShape(Tetriminoes.NoShape);
+			System.out.println("line remove " + numFullLines);
 			repaint();
+			System.out.println("repaint");
 		}
 	}
 	

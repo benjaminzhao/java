@@ -35,6 +35,7 @@ public class Shape {
 		}
 		pieceShape = sh;
 	}
+	
 	public Tetriminoes getShape(){
 		return pieceShape;
 	}

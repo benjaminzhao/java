@@ -107,7 +107,7 @@ public class Config {
 		if(!configfile.exists()){
 			configfile.createNewFile();
 		}
-		//do save to file
+		//save to file
 		PrintWriter pw = new PrintWriter(configfile);
 		pw.println("left:" + Config.Left);
 		pw.println("right:" + Config.Right);
@@ -125,7 +125,7 @@ public class Config {
 			//System.out.println(dir);
 			return dir;
 		}
-		if(OS.contains("MAC")){
+		if(OS.contains("Mac")){
 			return System.getProperty("user.home")+"Library/Application Support";
 		}
 		return System.getProperty("user.home");
