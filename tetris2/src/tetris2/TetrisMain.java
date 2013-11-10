@@ -3,6 +3,7 @@ package tetris2;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -31,6 +32,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 	Timer timer;
 	
 	static TetrisMain game;
+	static Sound MainTheme;
 	
 	public TetrisMain(){
 		//final JFrame frame = new JFrame("Tetris");
@@ -174,6 +176,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		game.setLocationRelativeTo(null);
 		game.setVisible(true);
+		MainTheme = new Sound(Config.getDefaultDir()+"/BG/Tetris.mp3", true);
 	}
 
 
@@ -189,7 +192,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 		System.out.println("game starting...");
 		newPiece();
 		timer.start();
-		
+		MainTheme.play();
 	}
 	
 	public void pause(){
@@ -465,4 +468,6 @@ public class TetrisMain extends JFrame implements ActionListener{
 			
 		}
 	}
+
+
 }
