@@ -176,7 +176,9 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		game.setLocationRelativeTo(null);
 		game.setVisible(true);
-		MainTheme = new Sound(Config.getDefaultDir()+"/BG/Tetris.mp3", true);
+		
+		MainTheme = new Sound(Config.getDefaultDir()+"\\BG\\Tetris.mp3", true);
+		MainTheme.play();
 	}
 
 
@@ -189,10 +191,12 @@ public class TetrisMain extends JFrame implements ActionListener{
 		isStarted = true;
 		isFallingFinished = false;
 		numLinesRemoved = 0;
-		System.out.println("game starting...");
+		
 		newPiece();
 		timer.start();
-		MainTheme.play();
+		
+		
+		System.out.println("game starting...");
 	}
 	
 	public void pause(){
