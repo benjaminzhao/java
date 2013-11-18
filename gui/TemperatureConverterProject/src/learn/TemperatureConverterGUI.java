@@ -62,6 +62,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         Main_Panel = new javax.swing.JPanel();
         Celsius_TextField = new javax.swing.JTextField();
         Fahrenheit_TextField = new javax.swing.JTextField();
@@ -69,6 +70,8 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         Fahrenheit_Label = new javax.swing.JLabel();
         X_Label = new javax.swing.JLabel();
         Y_Label = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         Open_Menu = new javax.swing.JMenu();
         Open_MenuItem = new javax.swing.JMenuItem();
@@ -82,7 +85,6 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TemperatureConverter");
         setBackground(new java.awt.Color(255, 255, 153));
-        setName("frame1"); // NOI18N
         setResizable(false);
 
         Main_Panel.setBackground(new java.awt.Color(255, 204, 0));
@@ -143,7 +145,7 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
                 .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Fahrenheit_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Fahrenheit_Label))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         Main_PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Celsius_TextField, Fahrenheit_TextField});
@@ -153,6 +155,15 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         X_Label.setText("X=0");
 
         Y_Label.setText("Y=0");
+
+        jButton1.setText("Brose");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("jLabel1");
 
         MenuBar.setBackground(new java.awt.Color(102, 102, 0));
 
@@ -218,24 +229,33 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(X_Label)
-                .addContainerGap(122, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Y_Label)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Y_Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(86, 86, 86))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(X_Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(X_Label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Y_Label)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(X_Label)
+                    .addComponent(jButton1))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Y_Label)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -331,6 +351,15 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
 		about.setVisible(true);
 	}//GEN-LAST:event_About_MenuItemActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser a = new JFileChooser();
+        int ret = a.showOpenDialog(TemperatureConverterGUI.this);
+        if (ret == JFileChooser.APPROVE_OPTION){
+            jLabel1.setText( a.getSelectedFile().toString() );
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 	protected class MyUndoableEditListener implements UndoableEditListener{
 		public void undoableEditHappened(UndoableEditEvent e) {
 			undolist.addEdit(e.getEdit());
@@ -416,5 +445,8 @@ public class TemperatureConverterGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem Undo_MenuItem;
     private javax.swing.JLabel X_Label;
     private javax.swing.JLabel Y_Label;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,10 +3,12 @@ package tetris2;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import javax.swing.*;
+
 import java.util.*;
 
-public class Config {
+public class Config implements ActionListener {
 
 	public static String Rotate = "空格", Left = "向左箭头", Right = "向右箭头", Down = "向下箭头", Pause = "P", Harddrop = "向上箭头";
 	
@@ -57,9 +59,29 @@ public class Config {
 			}
 		});
 		option.add(done);
+		
+		JLabel BGMusic = new JLabel("BG music");
+		BGMusic.setBounds(10, 150, 100, 30);
+		option.add(BGMusic);
+		
+		JButton Browser = new JButton("Browser");
+		Browser.setBounds(10, 180, 100, 30);
+		Browser.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(option);
+			}
+			
+		});
+		
+		
+		
 		option.setVisible(true);
 		
 	}
+	
 	
 	public static void saveChanges(){
 		Config.Left = choices.get(0).getSelectedItem();
@@ -155,6 +177,13 @@ public class Config {
 			//}
 		}
 		return result;
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
