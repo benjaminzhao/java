@@ -10,7 +10,13 @@ import java.util.*;
 
 public class Config implements ActionListener {
 
-	public static String Rotate = "空格", Left = "向左箭头", Right = "向右箭头", Down = "向下箭头", Pause = "P", Harddrop = "向上箭头";
+	public static String Rotate = "空格";//default
+	public static String Left = "向左箭头";
+	public static String Right = "向右箭头";
+	public static String Down = "向下箭头";
+	public static String Pause = "P";
+	public static String Harddrop = "向上箭头";
+	public static String BGFile = getDefaultDir()+"\\BG\\Tetris.mp3";
 	
 	private static ArrayList<Choice> choices;
 	
@@ -50,8 +56,36 @@ public class Config implements ActionListener {
 		addChoice("pause", option, 230, 60);
 		choices.get(5).select(Config.Pause);
 		
+		
+		
+		JLabel BGMusic = new JLabel("BG music");
+		BGMusic.setBounds(10, 120, 100, 30);
+		option.add(BGMusic);
+		
+		final JTextField BGMusicFile = new JTextField(BGFile);
+		BGMusicFile.setBounds(10, 150, 320, 30);
+		//BGMusicFile.setText();
+		option.add(BGMusicFile);
+		
+		JButton Browser = new JButton("Open a File...");
+		Browser.setBounds(200, 120, 130, 30);
+		Browser.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFileChooser chooser = new JFileChooser();
+				chooser.
+				int ret = chooser.showOpenDialog(option);
+				if (ret == JFileChooser.APPROVE_OPTION){
+					BGMusicFile.setText( chooser.getSelectedFile().toString() );
+					BGFile = BGMusicFile.getText();
+		        }
+			}
+		});
+		option.add(Browser);
+		
 		JButton done = new JButton("SAVE");
-		done.setBounds(10, 110, 100, 30);
+		done.setBounds(10, 200, 100, 30);
 		done.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Config.saveChanges();
@@ -59,24 +93,6 @@ public class Config implements ActionListener {
 			}
 		});
 		option.add(done);
-		
-		JLabel BGMusic = new JLabel("BG music");
-		BGMusic.setBounds(10, 150, 100, 30);
-		option.add(BGMusic);
-		
-		JButton Browser = new JButton("Browser");
-		Browser.setBounds(10, 180, 100, 30);
-		Browser.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(option);
-			}
-			
-		});
-		
-		
 		
 		option.setVisible(true);
 		
@@ -90,6 +106,7 @@ public class Config implements ActionListener {
 		Config.Harddrop = choices.get(3).getSelectedItem();
 		Config.Rotate = choices.get(4).getSelectedItem();
 		Config.Pause = choices.get(5).getSelectedItem();
+		//Config.BGFile = BGMusicFile.
 		try{
 			saveConfig();
 		}
@@ -108,12 +125,12 @@ public class Config implements ActionListener {
 		Scanner s = new Scanner(configfile);
 		HashMap<String, String> values = new HashMap<String, String>();
 		while(s.hasNextLine()){
-			String[] entry = s.nextLine().split(":");
+			String[] entry = s.nextLine().split("::");
 			String key = entry[0];
 			String value = entry[1];
 			values.put(key, value);
 		}
-		if(values.size() != 6)
+		if(values.size() != 7)
 			saveConfig();
 		
 		Config.Left = values.get("left");
@@ -121,7 +138,8 @@ public class Config implements ActionListener {
 		Config.Down = values.get("down");
 		Config.Harddrop = values.get("harddrop");
 		Config.Rotate = values.get("rotate");
-		Config.Pause =values.get("pause");
+		Config.Pause = values.get("pause");
+		Config.BGFile = values.get("BG File");
 	}
 	
 	public static void saveConfig() throws Exception {
@@ -131,12 +149,13 @@ public class Config implements ActionListener {
 		}
 		//save to file
 		PrintWriter pw = new PrintWriter(configfile);
-		pw.println("left:" + Config.Left);
-		pw.println("right:" + Config.Right);
-		pw.println("down:" + Config.Down);
-		pw.println("harddrop:" + Config.Harddrop);
-		pw.println("rotate:" + Config.Rotate);
-		pw.println("pause:" + Config.Pause);
+		pw.println("left::" + Config.Left);
+		pw.println("right::" + Config.Right);
+		pw.println("down::" + Config.Down);
+		pw.println("harddrop::" + Config.Harddrop);
+		pw.println("rotate::" + Config.Rotate);
+		pw.println("pause::" + Config.Pause);
+		pw.println("BG File::"+Config.BGFile);
 		pw.close();
 	}
 	

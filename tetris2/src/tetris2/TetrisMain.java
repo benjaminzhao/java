@@ -177,7 +177,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 		game.setLocationRelativeTo(null);
 		game.setVisible(true);
 		
-		MainTheme = new Sound(Config.getDefaultDir()+"\\BG\\Tetris.mp3", true);
+		MainTheme = new Sound(Config.BGFile, true);
 		MainTheme.play();
 	}
 
