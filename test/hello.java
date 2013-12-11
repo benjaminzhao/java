@@ -5,10 +5,9 @@ import java.lang.Math.*;
 import java.io.*;
 
 
-public class hello
-{
-	public static void main(String args[]) throws IOException
-	{
+public class hello{
+	
+	public static void main(String args[]) throws IOException{
 		long buf = 0L;
 		SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 		Date starttimeDate = new Date();
@@ -17,17 +16,14 @@ public class hello
 		String fin_name = "test.txt";
 		
 		File fin = new File(fin_name);
-		if (fin.exists() == false)
-		{/*if input file does not exsit, done*/
+		if (fin.exists() == false)	{/*if input file does not exsit, done*/
 			throw new FileNotFoundException(fin_name);
 			//throw new Error("File: " + fin_name + "does not exist!");
 		}
-		else if (fin.isFile() == false)
-		{
+		else if (fin.isFile() == false)	{
 			throw new Error("File: " + fin_name + "is not a file!");
 		}
-		else if (fin.canRead() == false)
-		{
+		else if (fin.canRead() == false){
 			throw new Error("File: " + fin_name + "can not be read!");
 			
 		}
@@ -45,21 +41,18 @@ public class hello
 		int[][] J = new int[12][3];
 		int[][] JC_favo = new int[12][3];
 		
-		while(fin_Scanner.hasNextLine())
-		{
+		while(fin_Scanner.hasNextLine()){
 			fin_line = fin_Scanner.nextLine();
 			
 			Scanner thisline = new Scanner(fin_line);
 			
 			//fin_line.split("[ ]+")
 			
-			if(thisline.hasNext())
-			{
+			if(thisline.hasNext()){
 				String thisString = thisline.next();
 				//System.out.println(thisString);
 								
-				if(thisString.equalsIgnoreCase("C"))
-				{
+				if(thisString.equalsIgnoreCase("C")){
 					int i = Integer.parseInt( thisline.next().substring(1) );
 					//System.out.println(i);
 					C[i][0] = Integer.parseInt( thisline.next().substring(2) );
@@ -68,8 +61,7 @@ public class hello
 					c_cnt ++;
 
 				}
-				else if(thisString.equalsIgnoreCase("J"))
-				{
+				else if(thisString.equalsIgnoreCase("J")){
 					int i = Integer.parseInt( thisline.next().substring(1) );
 					//System.out.println(i);
 					J[i][0] = Integer.parseInt( thisline.next().substring(2) );
@@ -80,8 +72,7 @@ public class hello
 					String temp = thisline.next();
 					Scanner thissubline = new Scanner(temp);
 					thissubline.useDelimiter(",");
-					while(thissubline.hasNext())
-					{
+					while(thissubline.hasNext()){
 						JC_favo[i][index] = Integer.parseInt( thissubline.next().substring(1) );
 						index++;
 					}
@@ -139,8 +130,7 @@ public class hello
 		String thisline;
 		
 		int i,j;
-		for(i=0; i<3; i++)
-		{
+		for(i=0; i<3; i++){
 			thisline  = String.format("C C%d", i);
 			fout_br.write(thisline);
 			
@@ -171,15 +161,12 @@ public class hello
 		int[] b = new int[len];
 		int[] order = new int[len];
 		
-		for (i = 0; i< len; i++)
-		{
+		for (i = 0; i< len; i++){
 			order[i] = i;
 		}
 		
-		for (i = 0; i < len-1; i++)
-		{
-			for (j = i; j<len; j++)
-			{
+		for (i = 0; i < len-1; i++)	{
+			for (j = i; j<len; j++)	{
 				if (a[i] < a[j])
 				{/*big->small*/
 					temp = a[i];
@@ -194,8 +181,8 @@ public class hello
 		return order; /*  array saves the order number before sorting */
 	}
 	
-	public static int[] retrim(int[] J, int[] J_f)
-	{ /* remove the ith units of J, defined by J_f[] */
+	public static int[] retrim(int[] J, int[] J_f){ 
+		/* remove the ith units of J, defined by J_f[] */
 		int i,j,c,d;
 		boolean found;
 		
@@ -205,19 +192,15 @@ public class hello
 		int[] J_temp = new int[c_cnt-jc_favor_cnt];
 		
 			d = 0;
-			for (c = 0; c < c_cnt; c++)
-			{
+			for (c = 0; c < c_cnt; c++)	{
 				found = false;
-				for (i = 0; i < jc_favor_cnt; i++)
-				{
-					if (c == J_f[i])
-					{
+				for (i = 0; i < jc_favor_cnt; i++){
+					if (c == J_f[i]){
 						found = true;
 						break;
 					}
 				}
-				if (found == false)
-				{
+				if (found == false)	{
 					J_temp[d] = J[c];
 					d++;
 				}
@@ -227,8 +210,7 @@ public class hello
 	}
 	
 	/* get the J assign to C order, favorite first, then order based on J_value, big->small */
-	public static int[][] get_JC_order(int[][] Js_value, int[][] Js_favorC)
-	{   
+	public static int[][] get_JC_order(int[][] Js_value, int[][] Js_favorC){   
 		int i;
 		int j;
 		int c;
@@ -241,8 +223,7 @@ public class hello
 		int jc_favor_cnt = Js_favorC[0].length; //
 
 		
-		if (j_cnt != Js_favorC.length)
-		{
+		if (j_cnt != Js_favorC.length)	{
 			throw new Error("array's col number is not matched");
 		}
 		
@@ -253,27 +234,21 @@ public class hello
 		int[][] J_trimed = new int[j_cnt][c_cnt-jc_favor_cnt];
 		int[][] J_trimed_order = new int[j_cnt][c_cnt-jc_favor_cnt];
 		
-		for (j = 0; j < j_cnt; j++)
-		{
-			for (c = 0; c < c_cnt; c++)
-			{
+		for (j = 0; j < j_cnt; j++)	{
+			for (c = 0; c < c_cnt; c++)	{
 				order[c] = c;
 			}
 			/* trim Js_value, delete number in favorite group */
 			d = 0;
-			for (c = 0; c < c_cnt; c++)
-			{
+			for (c = 0; c < c_cnt; c++)	{
 				found = false;
-				for (i = 0; i < jc_favor_cnt; i++)
-				{
-					if (c == Js_favorC[j][i])
-					{
+				for (i = 0; i < jc_favor_cnt; i++){
+					if (c == Js_favorC[j][i]){
 						found = true;
 						break;
 					}
 				}
-				if (found == false)
-				{
+				if (found == false)	{
 					J_trimed[j][d] = Js_value[j][c];
 					J_trimed_order[j][d] = order[c];
 					d++;
@@ -283,12 +258,10 @@ public class hello
 			/* get the order array */
 			//J_temp_order[j] = reorder(Js_value[j]);	
 
-			for (c = 0; c < c_cnt-jc_favor_cnt-1; c++)
-			{
-				for (i = c; i < c_cnt-jc_favor_cnt; i++)
-				{
-					if (J_trimed[j][c] < J_trimed[j][i])
-					{/*big->small*/
+			for (c = 0; c < c_cnt-jc_favor_cnt-1; c++){
+				for (i = c; i < c_cnt-jc_favor_cnt; i++){
+					if (J_trimed[j][c] < J_trimed[j][i]){
+						/*big->small*/
 						temp = J_trimed[j][c];
 						J_trimed[j][c] = J_trimed[j][i];
 						J_trimed[j][i] = temp;
@@ -300,13 +273,11 @@ public class hello
 			}
 			
 			/*copy favorite order*/
-			for (c = 0; c < jc_favor_cnt; c++)
-			{
+			for (c = 0; c < jc_favor_cnt; c++){
 				JC_order[j][c] = Js_favorC[j][c];
 			}
 			/*assign non-favorite order*/
-			for (c = jc_favor_cnt, d = 0; c < c_cnt; c++,d++)
-			{
+			for (c = jc_favor_cnt, d = 0; c < c_cnt; c++,d++){
 				JC_order[j][c] = J_trimed_order[j][d];
 			}
 		}

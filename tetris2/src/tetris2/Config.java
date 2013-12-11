@@ -74,7 +74,7 @@ public class Config implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JFileChooser chooser = new JFileChooser();
-				chooser.
+				//chooser.addChoosableFileFilter(new FileFilter);
 				int ret = chooser.showOpenDialog(option);
 				if (ret == JFileChooser.APPROVE_OPTION){
 					BGMusicFile.setText( chooser.getSelectedFile().toString() );
@@ -116,7 +116,8 @@ public class Config implements ActionListener {
 	}
 	
 	public static void loadConfig()throws Exception {
-		File configfile = new File(getDefaultDir(),"/Config.txt");
+		String filepath = File.separator+"Config.txt";
+		File configfile = new File(getDefaultDir(),filepath);
 		if(!configfile.exists()){
 			configfile.createNewFile();
 			saveConfig();
@@ -143,7 +144,8 @@ public class Config implements ActionListener {
 	}
 	
 	public static void saveConfig() throws Exception {
-		File configfile = new File(getDefaultDir(),"/Config.txt");
+		String filepath = File.separator+"Config.txt";
+		File configfile = new File(getDefaultDir(),filepath);
 		if(!configfile.exists()){
 			configfile.createNewFile();
 		}

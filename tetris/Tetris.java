@@ -3,8 +3,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class Tetris extends JFrame
-{
+public class Tetris extends JFrame {
 	JLabel statusbar;
 	
 	public Tetris()
@@ -14,12 +13,11 @@ public class Tetris extends JFrame
 //		Board.board = new Board(this);
 //		add(board);
 //		board.start();
-		
+		super();
 		InitUI();
 	}
 	
-	private void InitUI()
-	{
+	private void InitUI() {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -42,8 +40,7 @@ public class Tetris extends JFrame
 	}
 	
 	
-	public static void main(String[] arg)
-	{
+	public static void main(String[] arg) {
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run()

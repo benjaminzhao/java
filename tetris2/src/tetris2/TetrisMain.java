@@ -34,7 +34,7 @@ public class TetrisMain extends JFrame implements ActionListener{
 	static TetrisMain game;
 	static Sound MainTheme;
 	
-	public TetrisMain(){
+	TetrisMain(){
 		//final JFrame frame = new JFrame("Tetris");
 		setTitle("Tetris");
 		setSize(WIDTH, HEIGHT);
@@ -194,7 +194,6 @@ public class TetrisMain extends JFrame implements ActionListener{
 		
 		newPiece();
 		timer.start();
-		
 		
 		System.out.println("game starting...");
 	}
